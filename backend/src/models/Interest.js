@@ -1,0 +1,2 @@
+import mongoose from 'mongoose';
+export default mongoose.model('Interest', new mongoose.Schema({ listing: { type: mongoose.Schema.Types.ObjectId, ref: 'Listing', required: true }, user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, name: { type: String, required: true }, phone: { type: String, required: true }, message: String, eventDate: Date, status: { type: String, enum: ['new', 'contacted', 'closed'], default: 'new' } }, { timestamps: true }));

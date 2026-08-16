@@ -1,0 +1,5 @@
+import { Router } from 'express'; import jwt from 'jsonwebtoken'; import User from '../models/User.js'; import { protect } from '../middleware/auth.js';
+const router = Router(); const token = id => jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '7d' }); const response = u => ({ token: token(u._id), user: { id: u._id, name: u.name, email: u.email, city: u.city, state: u.state, isAdmin: u.isAdmin } });
+router.post('/register', async (req, res) => { const { name, email, password, phone, city, state } = req.body; if (!name || !email || !password) return res.status(400).json({ message: 'Name, email and password are required.' }); const user = await User.create({ name, email, password, phone, city, state }); res.status(201).json(response(user)); });
+router.post('/login', async (req, res) => { const user = await User.findOne({ email: req.body.email?.toLowerCase() }).select('+password'); if (!user || !await user.comparePassword(req.body.password || '')) return res.status(401).json({ message: 'Invalid email or password.' }); res.json(response(user)); });
+router.get('/me', protect, (req, res) => res.json({ user: req.user })); export default router;

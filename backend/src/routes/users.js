@@ -1,0 +1,3 @@
+import { Router } from 'express'; import User from '../models/User.js'; import { protect } from '../middleware/auth.js'; const router = Router();
+router.get('/favourites', protect, async (req, res) => { const user = await User.findById(req.user._id).populate({ path: 'favourites', populate: { path: 'category', select: 'name slug' } }); res.json(user.favourites); });
+router.post('/favourites/:listingId', protect, async (req, res) => { const user = req.user; const id = req.params.listingId; const has = user.favourites.some(x => x.toString() === id); user.favourites = has ? user.favourites.filter(x => x.toString() !== id) : [...user.favourites, id]; await user.save(); res.json({ favourited: !has, favourites: user.favourites }); }); export default router;
