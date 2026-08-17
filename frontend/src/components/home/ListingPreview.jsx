@@ -9,7 +9,7 @@ export default function ListingPreview({ listing }) {
   const location = [listing.city, listing.state].filter(Boolean).join(', ');
 
   return (
-    <Link to={`/listings/${listing._id}`} className="group overflow-hidden rounded-md border border-[#eee9e1] bg-white transition duration-200 hover:-translate-y-1 hover:shadow-xl">
+    <Link to={`/listings/${listing._id}`} className="group overflow-hidden rounded-xl border border-[#eee9e1] bg-white transition duration-200 active:scale-[.99] sm:rounded-md sm:hover:-translate-y-1 sm:hover:shadow-xl">
       <div className="relative h-52 overflow-hidden">
         <img className="h-full w-full object-cover transition duration-300 group-hover:scale-105" src={image} alt="" />
         {listing.category && <span className="absolute bottom-3 left-3 rounded bg-white px-2 py-1 text-xs font-bold text-[#b84d66]">{listing.category.name}</span>}
