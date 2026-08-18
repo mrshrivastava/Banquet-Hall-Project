@@ -11,7 +11,8 @@ const publicUser = user => ({
   city: user.city,
   state: user.state,
   avatar: user.avatar,
-  isAdmin: user.isAdmin
+  isAdmin: user.isAdmin,
+  isVendor: user.isVendor
 });
 
 export const getUserDetails = async (req, res) => res.json({ user: publicUser(req.user) });

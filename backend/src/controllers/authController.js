@@ -18,7 +18,8 @@ const userResponse = user => ({
     city: user.city,
     state: user.state,
     avatar: user.avatar,
-    isAdmin: user.isAdmin
+    isAdmin: user.isAdmin,
+    isVendor: user.isVendor
   }
 });
 

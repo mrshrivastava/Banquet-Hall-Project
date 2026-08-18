@@ -8,7 +8,9 @@ const userSchema = new mongoose.Schema({
   password: { type: String, minlength: 8, select: false },
   googleId: { type: String, unique: true, sparse: true, index: true },
   avatar: { type: String, trim: true },
-  isAdmin: { type: Boolean, default: false }, favourites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Listing' }]
+  isAdmin: { type: Boolean, default: false },
+  isVendor: { type: Boolean, default: false },
+  favourites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Listing' }]
 }, { timestamps: true });
 userSchema.pre('save', async function () { if (this.isModified('password') && this.password) this.password = await bcrypt.hash(this.password, 12); });
 userSchema.methods.comparePassword = function (password) { return bcrypt.compare(password, this.password); };
